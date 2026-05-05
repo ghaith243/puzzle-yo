@@ -1,0 +1,164 @@
+﻿:root {
+  --bg: #f3e5d3;
+  --card: #fff7eb;
+  --text: #4a2d18;
+  --accent: #7a4423;
+  --border: #d4b8a0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at top, #fdf6ec 0%, #efd6c0 100%);
+  color: var(--text);
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3.4rem);
+}
+
+header p {
+  margin: 10px auto 0;
+  max-width: 680px;
+  color: #72503c;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.controls label,
+.controls select,
+.controls button,
+.controls .status {
+  font-size: 1rem;
+}
+
+.controls select,
+.controls button {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+}
+
+.controls button {
+  cursor: pointer;
+  background: var(--accent);
+  color: #fff;
+  border-color: transparent;
+}
+
+.status {
+  min-width: 240px;
+  text-align: center;
+}
+
+.board-container {
+  display: grid;
+  place-items: center;
+}
+
+.board {
+  width: min(100%, 720px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  background: #f9efe1;
+  border: 5px solid var(--accent);
+  border-radius: 24px;
+  display: grid;
+  overflow: hidden;
+  position: relative;
+}
+
+.piece {
+  position: relative;
+  background-color: #f3e0d0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+.piece:hover {
+  transform: scale(1.02);
+}
+
+.piece.dragging {
+  opacity: 0.6;
+}
+
+.piece.selected {
+  outline: 3px solid rgba(122, 68, 35, 0.9);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.board.missing-image::after {
+  content: "Image manquante : ajoutez assets/bottle.jpg pour afficher le puzzle complet.";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  font-size: 1rem;
+  padding: 16px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+}
+
+.board.missing-image .piece {
+  background-image: none;
+}
+
+.instructions {
+  margin-top: 24px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+}
+
+.instructions h2 {
+  margin-top: 0;
+}
+
+.instructions ul {
+  padding-left: 20px;
+}
+
+code {
+  font-family: Consolas, Menlo, Monaco, monospace;
+  background: #f4e5d7;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+@media (max-width: 620px) {
+  .controls {
+    flex-direction: column;
+  }
+}
