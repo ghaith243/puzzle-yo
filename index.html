@@ -3,44 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Puzzle Bouteille YOYO</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <div class="app">
-    <header>
-      <h1>Puzzle Bouteille YOYO</h1>
-      <p>Reconstituez la bouteille en déplaçant les pièces.</p>
-    </header>
-
-    <section class="controls">
-      <label for="difficulty">Difficulté :</label>
-      <select id="difficulty">
-        <option value="3">Facile (3×3)</option>
-        <option value="4">Moyen (4×4)</option>
-        <option value="5">Difficile (5×5)</option>
-      </select>
-      <button id="startButton">Démarrer</button>
-      <div class="status">
-        <span id="timer">00:00</span> • <span id="message">Choisissez une difficulté et démarrez.</span>
+  <main class="app">
+    <section class="topbar">
+      <div>
+        <p class="eyebrow">Réflexion gourmande</p>
+        <h1>Puzzle Bouteille <span>YOYO</span></h1>
+        <p class="subtitle">
+          Reconstitue la bouteille en échangeant les pièces. Moins tu mets de temps, plus ton score est fort.
+        </p>
       </div>
+
+      <button id="openRules" class="btn btn-soft" type="button">Règles</button>
     </section>
 
-    <section class="board-container">
-      <div id="board" class="board"></div>
-    </section>
+    <section class="game-shell">
+      <section class="game-main">
+        <div class="control-bar">
+          <div class="field">
+            <label for="difficulty">Difficulté</label>
+            <select id="difficulty">
+              <option value="3">Facile — 3×3</option>
+              <option value="4">Moyen — 4×4</option>
+              <option value="5">Difficile — 5×5</option>
+            </select>
+          </div>
 
-    <section class="instructions">
-      <h2>Comment jouer</h2>
+          <button id="startButton" class="btn btn-primary" type="button">Démarrer</button>
+
+          <div class="timer-pill">
+            <span>Temps</span>
+            <strong id="timer">00:00</strong>
+          </div>
+        </div>
+
+        <div class="message-bar">
+          <span class="message-icon">✨</span>
+          <span id="message">Choisissez une difficulté et démarrez.</span>
+        </div>
+
+        <section class="board-card">
+          <div class="board-header">
+            <div>
+              <h2>Plateau de jeu</h2>
+              <p>Clique deux pièces pour les échanger, ou glisse une pièce sur une autre.</p>
+            </div>
+
+            <div class="grid-pill" id="gridLabel">3×3</div>
+          </div>
+
+          <div class="board-container">
+            <div id="board" class="board"></div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="side-panel">
+        <section class="preview-card">
+          <div class="preview-head">
+            <span>🧩</span>
+            <div>
+              <h3>Modèle</h3>
+              <p>Image finale à reconstituer</p>
+            </div>
+          </div>
+
+          <div class="preview-image"></div>
+        </section>
+
+        <section class="tips-card">
+          <h3>Conseils rapides</h3>
+          <ul>
+            <li>Commence par les coins.</li>
+            <li>Repère les bords de la bouteille.</li>
+            <li>Replace ensuite le centre.</li>
+          </ul>
+        </section>
+
+        <section class="reward-card">
+          <span class="reward-icon">🎮</span>
+          <div>
+            <h3>Bonus YOYO</h3>
+            <p>Termine le puzzle pour entrer dans le tirage au sort PS5.</p>
+          </div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <div id="rulesModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeRules" class="modal-close" type="button">×</button>
+
+      <p class="eyebrow">Comment jouer</p>
+      <h2>Règles du puzzle</h2>
+
       <ul>
-        <li>Les pièces sont mélangées aléatoirement au démarrage.</li>
-        <li>Cliquez sur une pièce puis sur une autre pour les échanger.</li>
-        <li>Vous pouvez aussi glisser une pièce sur une autre.</li>
+        <li>Les pièces sont mélangées au démarrage.</li>
+        <li>Clique sur une pièce puis sur une autre pour les échanger.</li>
+        <li>Tu peux aussi glisser une pièce sur une autre.</li>
         <li>Le chronomètre démarre dès le premier déplacement.</li>
+        <li>Quand la bouteille est complète, tu gagnes la partie.</li>
+        <li>Une victoire te qualifie pour le tirage au sort PS5 YOYO.</li>
       </ul>
-      <p>Placez l'image dans <code>assets/bottle.jpg</code> pour afficher la bouteille réelle.</p>
-    </section>
+
+      <button id="closeRulesFooter" class="btn btn-primary full" type="button">Compris</button>
+    </div>
   </div>
+
+  <div id="winModal" class="modal hidden">
+    <div class="modal-card win-card">
+      <button id="closeWin" class="modal-close" type="button">×</button>
+
+      <p class="eyebrow">Victoire</p>
+      <h2>Bravo 🎉</h2>
+
+      <p id="winText">
+        Puzzle reconstitué avec succès.
+      </p>
+
+      <div class="win-grid">
+        <div>
+          <strong id="finalTime">00:00</strong>
+          <span>temps final</span>
+        </div>
+
+        <div>
+          <strong id="finalGrid">3×3</strong>
+          <span>difficulté</span>
+        </div>
+
+        <div>
+          <strong>PS5</strong>
+          <span>tirage YOYO</span>
+        </div>
+      </div>
+
+      <button id="playAgain" class="btn btn-primary full" type="button">Rejouer</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
